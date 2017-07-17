@@ -251,7 +251,7 @@ function parseHash(fieldsById) {
     //yearSelect.attr("disabled", "disabled");
     reset();
 
-  } else
+  } else {
     /*
             if (field.years) {
                 if (field.yecs.indexOf(year) === -1) {
@@ -271,6 +271,7 @@ function parseHash(fieldsById) {
                 .attr("disabled", null);
     */
     deferredUpdate();
+  }
   location.replace("#" + field.id);
 
   hashish.attr("href", function(href) {
