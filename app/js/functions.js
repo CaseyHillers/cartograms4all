@@ -37,7 +37,7 @@ function writeToServer(session_id, string_to_save) {
   data.append("data", string_to_save);
   data.append("name", session_id);
   var XHR = (window.XMLHttpRequest) ? new XMLHttpRequest() : new activeXObject("Microsoft.XMLHTTP");
-  XHR.open('post', 'php/import_settings.php', true);
+  XHR.open('post', 'php/importSettings.php', true);
   XHR.send(data);
 }
 
@@ -53,7 +53,7 @@ function readFromServer(session_id) {
       return_string = XHR.responseText;
     }
   }
-  XHR.open('post', 'php/export_settings.php', false);
+  XHR.open('post', 'php/exportSettings.php', false);
   XHR.send(data);
   return return_string;
 }
