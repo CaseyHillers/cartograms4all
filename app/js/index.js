@@ -74,12 +74,12 @@ function init() {
   // CODE TO TEST FUNCTIONALITY OF writeToServer() and readFromServer()
   SESSION_ID = readCookie('user_session_cookie');
 
-  //var send_text = "my_text_to_save";
-  //writeToServer(SESSION_ID, send_text);
-  //console.log(SESSION_ID);
+  var send_text = "my_text_to_save";
+  writeToServer(SESSION_ID, send_text);
+  console.log(SESSION_ID);
 
-  //var return_string = readFromServer(SESSION_ID);
-  //console.log(return_string);
+  var return_string = readFromServer(SESSION_ID);
+  console.log(return_string);
   // CODE TO TEST FUNCTIONALITY OF writeToServer() and readFromServer()
 
 
