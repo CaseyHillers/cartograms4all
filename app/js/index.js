@@ -47,7 +47,7 @@ function inito (){
 function init() {
   run();
   // don't initialize until user has uploaded a .csv file
-  /*
+
   if(document.getElementById('input_csv').files[0] == null){
     console.log("Cartograms 4 All: Waiting for user inputted CSV file");
     return;  
@@ -57,6 +57,7 @@ function init() {
     console.log("Cartograms 4 All: Waiting for user inputted topojson file");
     return;
   }
+/*
  if(latitude == null){
     console.log("please enter the projection for latitude");
     return;
