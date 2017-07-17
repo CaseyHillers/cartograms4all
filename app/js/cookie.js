@@ -16,7 +16,7 @@ function createCookie(name, value, daysToExpire, path) {
 function readCookie(name) {
     var nameAttr = name + "=";
     var cookies = document.cookie.split(';');
-    for(var cookie=0;i < cookies.length;i++) {
+    for(var i = 0; i < cookies.length; i++) {
         var cookie = ca[i];
         while (cookie.charAt(0)==' ') cookie = cookie.substring(1,cookie.length);
         if (cookie.indexOf(nameAttr) == 0) return cookie.substring(nameAttr.length,cookie.length);
