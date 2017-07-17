@@ -27,7 +27,7 @@ $(document).ready(function() {
   // if not already set, set new cookie.
   var session_id = generateSessionID(16);
   if( readCookie('user_session_cookie') === null ){
-    create_cookie('user_session_cookie', session_id, 10, '/');
+    createCookie('user_session_cookie', session_id, 10, '/');
   }else{
     //importUserSettings()
   }
