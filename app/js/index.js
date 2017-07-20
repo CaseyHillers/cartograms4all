@@ -11,7 +11,8 @@ var body;
 var topology;
 var carto;
 var geometries;
-
+var userSessionCookie;
+var userData; 
 
 /*
  * Main program instructions
@@ -19,7 +20,17 @@ var geometries;
 console.log("Running Cartograms 4 All Web App");
 
 $(document).ready(function() {
+  // if not already set, set new cookie.
+  var session_id = generateSessionID(16);
+  if(readCookie('userSessionCookie') === null) { 
+    createCookie('userSessionCookie', session_id, 10, '/'); 
+  }
   init();
+  //set default data file and topoJSON
+  /*map
+    .call(updateZoom)
+    .call(zoom.event);
+  */
 });
 /*
  * End of main program instructions
@@ -38,12 +49,29 @@ Or we could just put the main logic back in index.html, even though that's not a
 //initialization of the entire map
 
 function init() {
-  // don't initialize until user has uploaded a .csv file
-  if(document.getElementById('input_csv').files[0] == null){
-    console.log("Cartograms 4 All: Waiting for user inputted CSV file");
-    return;
+  // Start with default data and topo for user
+  // Switch to user data when given
+  if (userSessionCookie == null) {
+    userSessionCookie = readCookie('userSessionCookie');
   }
-  USER_CSV = document.getElementById('input_csv').files[0];
+
+  if (document.getElementById('input_csv').files[0] == null) {
+    userData = DEFAULT_DATA;
+  } else {
+      //File object is immutable, so it does not rename to make it unique per user in js
+      var csv = document.getElementById('input_csv').files[0];
+      /*
+     //Save user input if it is given and override the default
+      if (csv != null) { 
+        saveCSV(csv); 
+        userData = USER_DIRECTORY + csv.name;
+      } else {
+        //Avoid null user file
+        userData = DEFAULT_DATA;
+      }
+      */
+      userData = URL.createObjectURL(csv);
+  }
   console.log("Cartograms 4 All: Start init()");
   map = d3.select("#map");
   zoom = d3.behavior.zoom()
@@ -57,7 +85,7 @@ function init() {
     .attr("id", "states")
     .selectAll("path");
 
-  csvFields = getCSVFields(initCartogram);
+  csvFields = getCSVFields(initCartogram, userData);
 
   var proj = d3.geo.albersUsa(),
     rawData,
@@ -71,12 +99,11 @@ function init() {
     .value(function(d) {
       return +d.properties[field];
     });
-
-  var topoURL = DATA_DIRECTORY + "us-states.topojson";
-  d3.json(topoURL, function(topology) {
+  
+  d3.json(DEFAULT_TOPO, function(topology) {
     this.topology = topology;
     geometries = topology.objects.states.geometries;
-    d3.csv(CSV_URL, function(rawData) {
+    d3.csv(userData, function(rawData) {
       dataById = d3.nest()
         .key(function(d) {
           return d.NAME;
