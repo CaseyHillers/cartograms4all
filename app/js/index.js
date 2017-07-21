@@ -2,7 +2,6 @@
 var csvFields;
 var map;
 var zoom;
-var scale = .94;
 var layer;
 var percent;
 var fieldSelect;
@@ -27,11 +26,6 @@ $(document).ready(function() {
     createCookie('userSessionCookie', session_id, 10, '/'); 
   }
   init();
-  //set default data file and topoJSON
-  /*map
-    .call(updateZoom)
-    .call(zoom.event);
-  */
 });
 /*
  * End of main program instructions
@@ -72,14 +66,13 @@ function init() {
       //Add local file usage to avoid async js calls that breaks map
       userData = URL.createObjectURL(csv);
   }
-  userData = DEFAULT_DATA;
 
   console.log("Cartograms 4 All: Start init()");
   map = d3.select("#map");
   zoom = d3.behavior.zoom()
     .translate([-38, 32])
-    .scale(scale)
-    .scaleExtent([0.1, 20.0])
+    .scale(.94)
+    .scaleExtent([0.5, 10.0])
     .on("zoom", updateZoom);
   layer = map.append("g")
     .attr("id", "layer")
@@ -94,17 +87,6 @@ function init() {
   var proj = d3.geo.albersUsa(),
     rawData,
     dataById = {};
-
-  /**
-  var proj = d3.geo.conicConformal()
-      .center(center)
-      .clip(Angle(180))
-      .scale(pScale)
-      .translate(width / 2, height / 2)
-      .precision(.1),
-      rawData,
-      dataById = {};
- **/
 
   carto = d3.cartogram()
     .projection(proj)
