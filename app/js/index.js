@@ -44,17 +44,22 @@ Or we could just put the main logic back in index.html, even though that's not a
 //initialization of the entire map
 
 function init() {
+
+  var csv = document.getElementById('input_csv').files[0];
+
   // Start with default data and topo for user
-  // Switch to user data when given
+  // Switch to user data when given or userData loaded from another user
   if (userSessionCookie == null) {
     userSessionCookie = readCookie('userSessionCookie');
   }
 
   if (document.getElementById('input_csv').files[0] == null) {
     userData = DEFAULT_DATA;
+  } else if (userData != null && csv == null) {
+    continue;
+
   } else {
       //File object is immutable, so it does not rename to make it unique per user in js
-      var csv = document.getElementById('input_csv').files[0];
      //Save user input if it is given and override the default
       if (csv != null) { 
         saveCSV(csv); 
