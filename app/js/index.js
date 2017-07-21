@@ -72,7 +72,7 @@ function init() {
       //Add local file usage to avoid async js calls that breaks map
       userData = URL.createObjectURL(csv);
   }
-
+  userData = DEFAULT_DATA;
 
   console.log("Cartograms 4 All: Start init()");
   map = d3.select("#map");
