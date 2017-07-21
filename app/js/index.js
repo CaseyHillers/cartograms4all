@@ -2,6 +2,7 @@
 var csvFields;
 var map;
 var zoom;
+var scale = .94;
 var layer;
 var percent;
 var fieldSelect;
@@ -63,6 +64,7 @@ function init() {
      //Save user input if it is given and override the default
       if (csv != null) { 
         saveCSV(csv); 
+        //userData = USER_DIRECTORY + csv.name;
       } else {
         //Avoid null user file
         userData = DEFAULT_DATA;
@@ -70,24 +72,39 @@ function init() {
       //Add local file usage to avoid async js calls that breaks map
       userData = URL.createObjectURL(csv);
   }
+
+
   console.log("Cartograms 4 All: Start init()");
   map = d3.select("#map");
   zoom = d3.behavior.zoom()
     .translate([-38, 32])
-    .scale(.94)
-    .scaleExtent([0.5, 10.0])
+    .scale(scale)
+    .scaleExtent([0.1, 20.0])
     .on("zoom", updateZoom);
   layer = map.append("g")
-    .attr("id", "layer"),
+    .attr("id", "layer")
+    .call(zoom),
     states = layer.append("g")
     .attr("id", "states")
-    .selectAll("path");
+    .selectAll("path")
+    .call(zoom);
 
   csvFields = getCSVFields(initCartogram, userData);
 
   var proj = d3.geo.albersUsa(),
     rawData,
     dataById = {};
+
+  /**
+  var proj = d3.geo.conicConformal()
+      .center(center)
+      .clip(Angle(180))
+      .scale(pScale)
+      .translate(width / 2, height / 2)
+      .precision(.1),
+      rawData,
+      dataById = {};
+ **/
 
   carto = d3.cartogram()
     .projection(proj)
@@ -97,6 +114,7 @@ function init() {
     .value(function(d) {
       return +d.properties[field];
     });
+
   
   d3.json(DEFAULT_TOPO, function(topology) {
     this.topology = topology;
@@ -161,7 +179,7 @@ function initCartogram(csvFields) {
     fields = csvFields,
     // TODO: Make this customizable
     // NOTE: Might just have this detect if there are digits at the end of the column or beginning,
-      // and if there are then use those as a year
+    // and if there are then use those as a year
     // TODO: Make a custom function getTimeInField() which will clear
     fieldsById = d3.nest()
     .key(function(d) {
