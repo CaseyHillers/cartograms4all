@@ -12,11 +12,10 @@ document.getElementById('upload_link_topo').onclick = function() {
 
 // loads the session ID into sharing form
 function shareSessionID(element){
-  //userSessionCookie = readCookie()
-  if(userSessionCookie===null){
+  if(userSessionID===null){
     element.value = "ERROR: SESSION COOKIE NOT SET";
   }else{
-    element.value = userSessionCookie;
+    element.value = userSessionID;
   }
 }
 
