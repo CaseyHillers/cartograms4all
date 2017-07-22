@@ -26,6 +26,7 @@ $(document).ready(function() {
   if(readCookie('userSessionCookie') === null) {
     createCookie('userSessionCookie', session_id, 10, '/');
   }
+  shareSessionID(document.getElementById("disabled"));
   init();
 });
 /*
