@@ -37,7 +37,7 @@ function download_png(){
 
 // 
 $('#download_svg').click(function(){
-        var a      = document.createElement('a');
+    var a      = document.createElement('a');
 		a.href     = 'data:image/svg+xml;utf8,' + unescape($('#map')[0].outerHTML);
 		a.download = 'svg_info.svg';
 		a.target   = '_blank';
@@ -62,7 +62,6 @@ function share_twitter(){
 
 // writes the user's current CSV to the server
 function saveSession(){
-  console.log("saveSession()");
   saveCSV(CSV);
 }
 
@@ -73,7 +72,6 @@ function loadSession(){
 
 // loads the session ID into sharing form
 function shareSessionID(element){
-  console.log("shareSessionID()");
   if(userSessionID==null){
     document.getElementById("shareIDLabel").value = "No Session ID saved. Please reload the page to save your session ID."
   }else{
