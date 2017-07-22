@@ -27,7 +27,7 @@ $(document).ready(function() {
     createCookie('userSessionCookie', session_id, 10, '/');
   }
   userSessionID = session_id;
-  shareSessionID(document.getElementById("disabled"););
+  shareSessionID(document.getElementById("disabled"));
   init();
 });
 /*
