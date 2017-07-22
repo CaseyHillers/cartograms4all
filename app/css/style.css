@@ -8483,9 +8483,6 @@ path.state {
 path.state:hover {
   stroke: #000; }
 
-#my_file, #my_cust_file {
-  display: none; }
-
 #upload_link {
   text-decoration: none; }
 
@@ -8496,10 +8493,11 @@ path.state:hover {
   margin-left: 15%;
   text-decoration: none; }
 
+/*
 #upload_topo {
   margin-right: 5%;
   text-decoration: none; }
-
+*/
 .upload-tabs {
   text-decoration: none;
   width: 5%; }

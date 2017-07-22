@@ -4,6 +4,12 @@ document.getElementById('upload_link').onclick = function() {
   document.getElementById('input_csv').click();
 };
 
+/*
+document.getElementById('upload_link_topo').onclick = function() {
+  document.getElementById('input_topo').click();
+};
+*/
+
 function clearContents(element) {
   switch(element.value) {
     case "Enter session ID":
@@ -22,11 +28,12 @@ function shareSessionID(element){
   }
 }
 
+
 /*
  * Code to run when document is ready
  */
 $(document).ready(function() {
-  // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+  // the "href" attribute of the modal trigger must specify the modal ID that wantsupload_link_topo to be triggered
   $('.modal').modal();
 
   $('.modal').modal({
@@ -77,7 +84,7 @@ function share_email(){
 }
 
 function share_twitter(){
-    window.open(href="https://twitter.com/intent/tweet?text=Hello%20world", '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
+    window.open(href="https://twitter.com/intent/tweet?text=Check out my cartogram!", '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
 }
 
 function saveSession(){

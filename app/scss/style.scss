@@ -36,18 +36,10 @@ path.state:hover {
     stroke: #000;
 }
 
-
-#my_file, #my_cust_file{
-    display: none;
-}
-
-#get_file, #cust_file{  // These are the two buttons
-
-}
-
 #upload_link{
     text-decoration:none;
 }
+
 #upload{
     display:none
 }
@@ -55,11 +47,11 @@ path.state:hover {
 #upload_csv {
   margin-left: 15%;
   text-decoration: none; }
-
+/*
 #upload_topo {
   margin-right: 5%;
   text-decoration: none; }
-
+*/
 
 .upload-tabs {
   text-decoration: none;
