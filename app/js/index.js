@@ -49,7 +49,7 @@ function init() {
   var csv = document.getElementById('input_csv').files[0];
   // Start with default data and topo for user
   // Switch to user data when given or userData loaded from another user
-  if (userSessionID === null) {
+  if (userSessionID == null) {
     userSessionID = readCookie('userSessionCookie');
     console.log("userSessionID: "+userSessionID);
   }

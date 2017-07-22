@@ -4,15 +4,9 @@ document.getElementById('upload_link').onclick = function() {
   document.getElementById('input_csv').click();
 };
 
-/*
-document.getElementById('upload_link_topo').onclick = function() {
-  document.getElementById('input_topo').click();
-};
-*/
-
 // loads the session ID into sharing form
 function shareSessionID(element){
-  if(userSessionID===null){
+  if(userSessionID==null){
     element.value = "ERROR: SESSION COOKIE NOT SET";
   }else{
     element.value = userSessionID;
