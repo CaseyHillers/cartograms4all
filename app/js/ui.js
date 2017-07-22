@@ -15,6 +15,7 @@ function shareSessionID(element){
 }
 
 document.getElementById('paste_session_id').onkeydown = function(event) {
+  console.log(event.keycode);
   if (event.keycode==13) console.log("testing");/*console.log(document.getElementById('paste_session_id').value);*/
 }
 /*
