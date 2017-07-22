@@ -100,8 +100,8 @@
            <a class="materialize-textarea"> 
       </div>
             <div class="input-field col s12">
-               <input readonly value="Session ID" id="disabled" type="text" >
-               <label for="disabled" id="shareIDLabel">Enter 16 character session ID and press return.</label>
+               <input readonly id="disabled" type="text" >
+               <label for="disabled" id="shareIDLabel">Session ID</label>
             </div>
            </a>
     </div>
@@ -119,7 +119,8 @@
            <a class="waves-effect waves-light btn-large" onclick="loadSession()">Load your session</a>
         </div>
            <div class="input-field col s12">
-              < <input id="paste_session_id" type="text" class="validate" >
+              <input id="paste_session_id" type="text" class="validate" 
+              onKeyDown="if(event.keyCode==13) testFunc(this);">
               <label for="paste_session_id">Enter session ID</label>
            </div>
     </div>
