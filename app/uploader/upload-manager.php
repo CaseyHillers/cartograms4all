@@ -15,7 +15,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         } else{
             if (move_uploaded_file($_FILES["input_csv"]["tmp_name"], "upload/" . $_FILES["input_csv"]["name"])){
               $csvString = readFromFile();
-              writeToFile($csvString);
+              writeToFile($csvString); //associating .csv with session_id
               echo "Your file was uploaded successfully.";
             } else {
                   echo "upload fail";

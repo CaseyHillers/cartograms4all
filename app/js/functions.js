@@ -58,20 +58,8 @@ function readFromServer(session_id) {
 }
 
 // returns contents from app/php/settings/<session_id>.json as a string
-function readCSVFromServer(session_id) {
-  var return_string;
-  var data = new FormData();
-  data.append("name", session_id);
-  var XHR = (window.XMLHttpRequest) ? new XMLHttpRequest() : new activeXObject("Microsoft.XMLHTTP");
-  //XHR.responseType = 'text';
-  XHR.onload = function() {
-    if (XHR.readyState === XHR.DONE) {
-      return_string = XHR.responseText;
-    }
-  }
-  XHR.open('post', 'php/exportSettings.php', false);
-  XHR.send(data);
-  return return_string;
+function loadCSVFromServer(session_id) {
+  userData = "uploader/upload" + session_id + ".csv";
 }
 
 //Save CSV to uploader/upload path via an ajax call

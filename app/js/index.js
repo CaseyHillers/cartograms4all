@@ -63,9 +63,9 @@ function init() {
     //continue;
   } else {
       //File object is immutable, so it does not rename to make it unique per user in js
-     //Save user input if it is given and override the default
+      //Save user input if it is given and override the default
       if (CSV != null) { 
-        saveCSV(CSV); //csv is saved automatically when it is uploaded...no need for "SAVE YOUR SESSION" button
+        saveCSV(CSV); // saves the user-uploaded csv under <userSessionID>.csv
         //userData = USER_DIRECTORY + csv.name;
       } else {
         //Avoid null user file
@@ -73,6 +73,7 @@ function init() {
       }
       //Add local file usage to avoid async js calls that breaks map
       userData = URL.createObjectURL(CSV);
+      //userData = "../uploader/upload/" + userSessionID + ".csv";
   }
 
   console.log("Cartograms 4 All: Start init()");

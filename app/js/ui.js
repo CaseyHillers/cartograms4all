@@ -65,18 +65,23 @@ function saveSession(){
   saveCSV(CSV);
 }
 
+/*
 // loads the user's last-used CSV from the server
-function loadSession(){
-  console.log("loadSession(): Please associate remote CSV files with session ID's");
+function loadMySession(){
+  csvFlag = true; //set csvFlag to true
+  intit();
 }
+
+// loads another user's last-used CSV from the server
+function loadOtherSession(){
+  csvFlag = false;
+  init();
+}
+*/
 
 // loads the session ID into sharing form
 function shareSessionID(element){
-  if(userSessionID==null){
-    document.getElementById("shareIDLabel").value = "No Session ID saved. Please reload the page to save your session ID."
-  }else{
-    element.value = userSessionID;
-  }
+  if(userSessionID==null) element.value = userSessionID;
 }
 
 // gets session ID from user...might eventually use that ID to do load another 
@@ -84,9 +89,7 @@ function shareSessionID(element){
 document.getElementById('paste_session_id').onkeydown = function(event) {
   var e = event || windows.event;
   if (e.keyCode==13){
-    console.log("Can't load other session: Please associate remote CSV files with session ID's")
-    tempSessionID = document.getElementById('paste_session_id').value;
-    // can't do anything with this session ID because the remote CSV isn't associated with any session ID.
+    tempSessionID = document.getElementById('paste_session_id').value; // gets the session_id from the form for accessing other user's CSV's
   }
 }
   
