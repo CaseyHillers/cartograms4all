@@ -26,11 +26,6 @@ $(document).ready(function() {
     createCookie('userSessionCookie', session_id, 10, '/'); 
   }
   init();
-  //set default data file and topoJSON
-  /*map
-    .call(updateZoom)
-    .call(zoom.event);
-  */
 });
 /*
  * End of main program instructions
@@ -49,17 +44,22 @@ Or we could just put the main logic back in index.html, even though that's not a
 //initialization of the entire map
 
 function init() {
+
+  var csv = document.getElementById('input_csv').files[0];
+
   // Start with default data and topo for user
-  // Switch to user data when given
+  // Switch to user data when given or userData loaded from another user
   if (userSessionCookie == null) {
     userSessionCookie = readCookie('userSessionCookie');
   }
 
   if (document.getElementById('input_csv').files[0] == null) {
     userData = DEFAULT_DATA;
+  } else if (userData != null && csv == null) {
+    continue;
+
   } else {
       //File object is immutable, so it does not rename to make it unique per user in js
-      var csv = document.getElementById('input_csv').files[0];
      //Save user input if it is given and override the default
       if (csv != null) { 
         saveCSV(csv); 
@@ -71,6 +71,7 @@ function init() {
       //Add local file usage to avoid async js calls that breaks map
       userData = URL.createObjectURL(csv);
   }
+
   console.log("Cartograms 4 All: Start init()");
   map = d3.select("#map");
   zoom = d3.behavior.zoom()
@@ -79,10 +80,12 @@ function init() {
     .scaleExtent([0.5, 10.0])
     .on("zoom", updateZoom);
   layer = map.append("g")
-    .attr("id", "layer"),
+    .attr("id", "layer")
+    .call(zoom),
     states = layer.append("g")
     .attr("id", "states")
-    .selectAll("path");
+    .selectAll("path")
+    .call(zoom);
 
   csvFields = getCSVFields(initCartogram, userData);
 
@@ -98,6 +101,7 @@ function init() {
     .value(function(d) {
       return +d.properties[field];
     });
+
   
   d3.json(DEFAULT_TOPO, function(topology) {
     this.topology = topology;
@@ -162,7 +166,7 @@ function initCartogram(csvFields) {
     fields = csvFields,
     // TODO: Make this customizable
     // NOTE: Might just have this detect if there are digits at the end of the column or beginning,
-      // and if there are then use those as a year
+    // and if there are then use those as a year
     // TODO: Make a custom function getTimeInField() which will clear
     fieldsById = d3.nest()
     .key(function(d) {
@@ -173,7 +177,7 @@ function initCartogram(csvFields) {
     })
     .map(fields),
     // TODO: Set default field to something that looks like data
-    field = fields[9],
+    field = fields[0],
     // TODO: Allow for customization of map color
     colors = colorbrewer.RdYlBu[3]
     .reverse()

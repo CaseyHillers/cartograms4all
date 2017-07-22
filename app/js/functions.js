@@ -3,7 +3,9 @@ var DEFAULT_DATA = "data/nst_2011.csv";
 var DEFAULT_TOPO = "data/us-states.topojson";
 var USER_DIRECTORY = "uploader/upload/";
 var USER_CSV; // holds object containing .csv file
+var USER_TOPO;
 var CSV_URL; // DOMString containing URL representing USER_CSV
+var SESSION_ID;
 
 var fields;
 var states;
@@ -16,6 +18,7 @@ function getCSVFields(callback, CSV) {
       return parseFields(results.data, callback);
     }
   });
+
 }
 
 function generateSessionID(length) {
@@ -113,6 +116,7 @@ function updateZoom() {
 
 //get  from the nitty gritty cartogram function in cartogram.js
 function initTopo() {
+  console.log("Starting a topo" + topology);
   var features = carto.features(topology, geometries),
     path = d3.geo.path()
     .projection(proj); //d3.geo.path is d3's main drawing function
@@ -175,9 +179,12 @@ function update() {
     lo = values[0],
     hi = values[values.length - 1];
 
+  console.log(values);
+
   var color = d3.scale.linear()
     .range(colors)
     .domain(lo < 0 ? [lo, 0, hi] : [lo, d3.mean(values), hi]);
+
 
   // normalize the scale to positive numbers
   var scale = d3.scale.linear()
@@ -192,7 +199,6 @@ function update() {
   // generate the new features, pre-projected
   var features = carto(topology, geometries).features;
 
-  console.log("update", states);
   // update the data
   states.data(features)
     .select("title")
@@ -252,20 +258,15 @@ function parseHash(fieldsById) {
                 .attr("disabled", null);
     */
     deferredUpdate();
-    location.replace("#" + field.id);
+  location.replace("#" + field.id);
 
-    hashish.attr("href", function(href) {
-      return href + location.hash;
-    });
-  }
+  hashish.attr("href", function(href) {
+    return href + location.hash;
+  });
+}
 
 //Inital map setup
-var map = d3.select("#map"),
-  zoom = d3.behavior.zoom()
-  .translate([-38, 32])
-  .scale(.94)
-  .scaleExtent([0.5, 10.0])
-  .on("zoom", updateZoom),
+var
   layer = map.append("g")
   .attr("id", "layer"),
   states = layer.append("g")
