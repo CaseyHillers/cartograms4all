@@ -4,22 +4,6 @@ document.getElementById('upload_link').onclick = function() {
   document.getElementById('input_csv').click();
 };
 
-// loads the session ID into sharing form
-function shareSessionID(element){
-  console.log("shareSessionID()");
-  if(userSessionID==null){
-    document.getElementById("shareIDLabel").value = "No Session ID saved. Please reload the page to save your session ID."
-  }else{
-    element.value = userSessionID;
-  }
-}
-
-document.getElementById('paste_session_id').onkeydown = function(event) {
-  var e = event || windows.event;
-  if (e.keyCode==13){
-    tempSessionID = document.getElementByID('paste_session_id').value;
-  }
-}
 /*
  * Code to run when document is ready
  */
@@ -60,7 +44,7 @@ $('#download_svg').click(function(){
 		document.body.appendChild(a); a.click(); document.body.removeChild(a);
 	});
 
-// 
+// Opens a the system's email app so you can post images or your session ID for sharing
 function share_email(){
     svgAsDataUri(d3.select('svg').node(), {}, function(uri) {
     //   console.log('uri', uri);     
@@ -71,17 +55,41 @@ function share_email(){
     });
 }
 
-// 
+// Opens a twitter link where you can post images or your session ID for sharing
 function share_twitter(){
     window.open(href="https://twitter.com/intent/tweet?text=Check out my cartogram!", '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
 }
 
-//
+// writes the user's current CSV to the server
 function saveSession(){
+  console.log("saveSession()");
+  saveCSV(CSV);
 }
 
-//
+// loads the user's last-used CSV from the server
 function loadSession(){
+  console.log("loadSession(): Please associate remote CSV files with session ID's");
+}
+
+// loads the session ID into sharing form
+function shareSessionID(element){
+  console.log("shareSessionID()");
+  if(userSessionID==null){
+    document.getElementById("shareIDLabel").value = "No Session ID saved. Please reload the page to save your session ID."
+  }else{
+    element.value = userSessionID;
+  }
+}
+
+// gets session ID from user...might eventually use that ID to do load another 
+// user's CSV file and settings
+document.getElementById('paste_session_id').onkeydown = function(event) {
+  var e = event || windows.event;
+  if (e.keyCode==13){
+    console.log("Can't load other session: Please associate remote CSV files with session ID's")
+    tempSessionID = document.getElementByID('paste_session_id').value;
+    // can't do anything with this session ID because the remote CSV isn't associated with any session ID.
+  }
 }
   
       
