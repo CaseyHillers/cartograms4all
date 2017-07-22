@@ -81,7 +81,7 @@ function loadOtherSession(){
 
 // loads the session ID into sharing form
 function shareSessionID(element){
-  if(userSessionID==null) element.value = userSessionID;
+  if(userSessionID!==null) element.value = userSessionID;
 }
 
 // gets session ID from user...might eventually use that ID to do load another 
