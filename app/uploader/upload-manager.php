@@ -14,8 +14,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
           echo $_FILES["input_csv"]["name"] . " is already exists.";
         } else{
             if (move_uploaded_file($_FILES["input_csv"]["tmp_name"], "upload/" . $_FILES["input_csv"]["name"])){
+              $csvString = readFromFile();
+              $writeToFile($csvString);
               echo "Your file was uploaded successfully.";
-
             } else {
                   echo "upload fail";
                   print_r($_FILES);
@@ -26,22 +27,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 }
 
-function writeToFile(){
-  if(!empty($_POST['data'])){
-    $settings_string = $_POST['data'];
-    $session_file_name = "settings/";
-    $session_id = $_POST['name'];
-    $session_file_name .= ($session_id .= ".json");
-    file_put_contents($session_file_name, $settings_string);
+function writeToFile($stringToWrite){
+  if(!empty($_POST['name'])){
+    $session_id = $_POST['session_id'];
+    $session_file_location = "upload/";
+    $session_file_location .= ($session_id .= ".csv");
+    file_put_contents($session_file_location, $stringToWrite);
   }
 }
 
-function readFromFile($csvName){
-  $session_file_name = "upload/";
-  $session_id = $_POST['session_id'];
-  $session_file_name .= ($session_id .= ".json");
-  $session_file_string = file_get_contents($session_file_name);
-  echo ($session_file_string);
+function readFromFile(){
+  if(!empty($_POST['name'])){
+    $csvName = "upload/";
+    $csvName .= $_POST['name'];
+    $session_file_string = file_get_contents($csvName);
+    return ($session_file_string);
+  }
 }
 ?>
 
