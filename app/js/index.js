@@ -22,8 +22,9 @@ console.log("Running Cartograms 4 All Web App");
 $(document).ready(function() {
   // if not already set, set new cookie.
   var session_id = generateSessionID(16);
-  if(readCookie('userSessionCookie') === null) { 
-    createCookie('userSessionCookie', session_id, 10, '/'); 
+  if(readCookie('userSessionCookie') === null) {
+    console.log(session_id);
+    createCookie('userSessionCookie', session_id, 10, '/');
   }
   init();
 });
@@ -46,7 +47,7 @@ Or we could just put the main logic back in index.html, even though that's not a
 function init() {
 
   var csv = document.getElementById('input_csv').files[0];
-
+  userSessionCookie = readCookie('userSessionCookie');
   // Start with default data and topo for user
   // Switch to user data when given or userData loaded from another user
   if (userSessionCookie == null) {

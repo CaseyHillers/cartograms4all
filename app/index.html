@@ -43,11 +43,11 @@
             <li class="tab" id="cust_file"><a id="cust_file">
               <i class="material-icons">view_array</i></a>
             </li>
-            -->
+
             <li class="tab">
               <a href="#settings_modal" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Settings"><i class="material-icons">settings</i></a>
             </li>
-
+            -->
 
             <!--Share tab-->
 
@@ -103,7 +103,7 @@
               <textarea class="session-id-area" cols="20" id="copy_session_id" onclick="shareSessionID(this)" readonly></textarea>
                -->
             <div class="input-field col s12">
-               <input disabled value="Session ID" id="disabled" type="text" class="validate">
+               <input value="Session ID" id="disabled" type="text" class="validate" onclick="shareSessionID(this)" >
                <label for="disabled"></label>
             </div>
            </a>
@@ -121,11 +121,6 @@
            <a class="waves-effect waves-light btn-large" onclick="saveSession()">Save your session</a>
            <a class="waves-effect waves-light btn-large" onclick="loadSession()">Load your session</a>
         </div>
-           <!--
-           <a class="materialize-textarea"> 
-              <textarea class="session-id-area"cols="20" id="paste_session_id" onfocus="clearContents(this)" >Enter session ID</textarea>
-           </a>
-           -->
            <div class="input-field col s12">
               <input id="paste_session_id" type="text" class="validate">
               <label for="paste_session_id">Enter session ID</label>

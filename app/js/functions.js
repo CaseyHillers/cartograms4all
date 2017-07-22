@@ -5,7 +5,6 @@ var USER_DIRECTORY = "uploader/upload/";
 var USER_CSV; // holds object containing .csv file
 var USER_TOPO;
 var CSV_URL; // DOMString containing URL representing USER_CSV
-var SESSION_ID;
 
 var fields;
 var states;
