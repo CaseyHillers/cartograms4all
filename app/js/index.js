@@ -56,7 +56,7 @@ function init() {
   if (document.getElementById('input_csv').files[0] == null) {
     userData = DEFAULT_DATA;
   } else if (userData != null && csv == null) {
-    continue;
+    //continue;
 
   } else {
       //File object is immutable, so it does not rename to make it unique per user in js
