@@ -6,6 +6,7 @@ document.getElementById('upload_link').onclick = function() {
 
 // loads the session ID into sharing form
 function shareSessionID(element){
+  console.log("shareSessionID()");
   if(userSessionID==null){
     element.value = "ERROR: SESSION COOKIE NOT SET";
   }else{
