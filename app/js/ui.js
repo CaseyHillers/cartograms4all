@@ -87,7 +87,7 @@ document.getElementById('paste_session_id').onkeydown = function(event) {
   var e = event || windows.event;
   if (e.keyCode==13){
     console.log("Can't load other session: Please associate remote CSV files with session ID's")
-    tempSessionID = document.getElementByID('paste_session_id').value;
+    tempSessionID = document.getElementById('paste_session_id').value;
     // can't do anything with this session ID because the remote CSV isn't associated with any session ID.
   }
 }
