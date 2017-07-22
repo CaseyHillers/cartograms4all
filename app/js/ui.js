@@ -16,8 +16,8 @@ function shareSessionID(element){
 
 document.getElementById('paste_session_id').onkeydown = function(event) {
   var e = event || windows.event;
-  console.log(e.keycode);
-  if (event.keycode==13) console.log("testing");/*console.log(document.getElementById('paste_session_id').value);*/
+  console.log(e.keyCode);
+  if (event.keyCode==13) console.log("testing");/*console.log(document.getElementById('paste_session_id').value);*/
 }
 /*
  * Code to run when document is ready
