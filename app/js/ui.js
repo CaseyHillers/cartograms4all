@@ -8,7 +8,7 @@ document.getElementById('upload_link').onclick = function() {
 function shareSessionID(element){
   console.log("shareSessionID()");
   if(userSessionID==null){
-    element.value = "ERROR: SESSION COOKIE NOT SET";
+    document.getElementById("shareIDLabel").value = "No Session ID saved. Please reload the page to save your session ID."
   }else{
     element.value = userSessionID;
   }
@@ -40,16 +40,13 @@ $(document).ready(function() {
   $(".dropdown-button").dropdown();
 });
 
-
-
-
+//
 function download_png(){
    var svg = d3.select('svg');
    saveSvgAsPng(d3.select('svg').node(), 'cartogram.png');
 }
 
-
-
+// 
 $('#download_svg').click(function(){
         var a      = document.createElement('a');
 		a.href     = 'data:image/svg+xml;utf8,' + unescape($('#map')[0].outerHTML);
@@ -58,7 +55,7 @@ $('#download_svg').click(function(){
 		document.body.appendChild(a); a.click(); document.body.removeChild(a);
 	});
 
-
+// 
 function share_email(){
     svgAsDataUri(d3.select('svg').node(), {}, function(uri) {
     //   console.log('uri', uri);     
@@ -69,13 +66,16 @@ function share_email(){
     });
 }
 
+// 
 function share_twitter(){
     window.open(href="https://twitter.com/intent/tweet?text=Check out my cartogram!", '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
 }
 
+//
 function saveSession(){
 }
 
+//
 function loadSession(){
 }
   
