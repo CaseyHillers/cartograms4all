@@ -13,7 +13,8 @@ var carto;
 var geometries;
 var userSessionCookie;
 var userSessionID;
-var userData; 
+var userData;
+var CSV;
 
 /*
  * Main program instructions
@@ -48,31 +49,30 @@ Or we could just put the main logic back in index.html, even though that's not a
 
 function init() {
 
-  var csv = document.getElementById('input_csv').files[0];
+  CSV = document.getElementById('input_csv').files[0];
   // Start with default data and topo for user
   // Switch to user data when given or userData loaded from another user
   if (userSessionID == null) {
     userSessionID = readCookie('userSessionCookie');
-    console.log("userSessionID: "+userSessionID);
+    //console.log("userSessionID: "+userSessionID);
   }
 
   if (document.getElementById('input_csv').files[0] == null) {
     userData = DEFAULT_DATA;
-  } else if (userData != null && csv == null) {
+  } else if (userData != null && CSV == null) {
     //continue;
-
   } else {
       //File object is immutable, so it does not rename to make it unique per user in js
      //Save user input if it is given and override the default
-      if (csv != null) { 
-        saveCSV(csv); 
+      if (CSV != null) { 
+        saveCSV(CSV); //csv is saved automatically when it is uploaded...no need for "SAVE YOUR SESSION" button
         //userData = USER_DIRECTORY + csv.name;
       } else {
         //Avoid null user file
         userData = DEFAULT_DATA;
       }
       //Add local file usage to avoid async js calls that breaks map
-      userData = URL.createObjectURL(csv);
+      userData = URL.createObjectURL(CSV);
   }
 
   console.log("Cartograms 4 All: Start init()");

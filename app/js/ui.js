@@ -16,7 +16,9 @@ function shareSessionID(element){
 
 document.getElementById('paste_session_id').onkeydown = function(event) {
   var e = event || windows.event;
-  if (e.keyCode==13) console.log(document.getElementById('paste_session_id').value);
+  if (e.keyCode==13){
+    tempSessionID = document.getElementByID('paste_session_id').value;
+  }
 }
 /*
  * Code to run when document is ready
