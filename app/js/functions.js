@@ -67,7 +67,7 @@ function saveCurrentUserCSV(userCSV) {
   data.append("session_id", userSessionID);
 
   $.ajax({
-    url: 'uploader/upload-manager.php',
+    url: 'uploader/UploadManager.php',
     type: 'POST',
     data: data,
     cache: false,
