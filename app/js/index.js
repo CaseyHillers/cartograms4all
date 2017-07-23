@@ -15,7 +15,7 @@ var userSessionCookie;
 var userSessionID;
 var userData;
 var CSV;
-var sessionFlag;
+var sessionFlag=true;
 
 /*
  * Main program instructions

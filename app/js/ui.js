@@ -62,7 +62,8 @@ function share_twitter(){
 
 // writes the user's current CSV to the server
 function saveSession(){
-  saveCurrentUserCSV(CSV);
+  if(CSV!=null && sessionFlag==true) saveCurrentUserCSV(CSV);
+  if(sessionFlag==false) saveOtherUserCSV();
 }
 
 /*
