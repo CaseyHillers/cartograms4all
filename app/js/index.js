@@ -74,7 +74,7 @@ function init() {
         userData = DEFAULT_DATA;
       }
       //Add local file usage to avoid async js calls that breaks map
-      userData = "../uploader/upload/" + userSessionID + ".csv";
+      userData = "/uploader/upload/" + userSessionID + ".csv";
       console.log("userData= "+ userData);
       //userData = "../uploader/upload/" + userSessionID + ".csv";
   }
