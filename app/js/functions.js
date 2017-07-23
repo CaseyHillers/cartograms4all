@@ -299,7 +299,7 @@ function parseHash(fieldsById) {
 }
 
 //Initial map setup
-var map = d3.select("#map"),    +var
+var map = d3.select("#map"),
   zoom = d3.behavior.zoom()   
   .translate([-38, 32])   
   .scale(.94)   
