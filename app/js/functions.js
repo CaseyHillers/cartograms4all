@@ -271,8 +271,13 @@ function parseHash(fieldsById) {
   });
 }
 
-//Inital map setup
-var
+//Initial map setup
+var map = d3.select("#map"),    +var
+  zoom = d3.behavior.zoom()   
+  .translate([-38, 32])   
+  .scale(.94)   
+  .scaleExtent([0.5, 10.0])   
+  .on("zoom", updateZoom),
   layer = map.append("g")
   .attr("id", "layer"),
   states = layer.append("g")

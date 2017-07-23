@@ -42,8 +42,5 @@ function readFromFile(){
     return ($session_file_string);
   }
 }
+exit();
 ?>
-
-
-
-
