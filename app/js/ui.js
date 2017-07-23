@@ -66,19 +66,9 @@ function saveSession(){
   if(sessionFlag==false) saveOtherUserCSV();
 }
 
-/*
-// loads the user's last-used CSV from the server
-function loadMySession(){
-  csvFlag = true; //set csvFlag to true
-  intit();
+function loadSession(){
+  console.log("loadSession()");
 }
-
-// loads another user's last-used CSV from the server
-function loadOtherSession(){
-  csvFlag = false;
-  init();
-}
-*/
 
 // loads the session ID into sharing form
 function shareSessionID(element){
