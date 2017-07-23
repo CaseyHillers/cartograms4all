@@ -76,8 +76,8 @@ function saveCurrentUserCSV(userCSV) {
     success: function(data, textStatus, jqXHR) {
       if (typeof data.error === 'undefined') {
         // Success so call function to process the form
-        //submitForm(event, data);
-	console.log('Success' + textStatus);
+        submitForm(event, data);
+	      console.log('Success' + textStatus);
       } else {
         // Handle errors here
         console.log('ERRORS: ' + data.error);
