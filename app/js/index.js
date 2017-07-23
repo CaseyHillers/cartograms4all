@@ -15,6 +15,7 @@ var userSessionCookie;
 var userSessionID;
 var userData;
 var CSV;
+var sessionFlag;
 
 /*
  * Main program instructions
@@ -65,8 +66,9 @@ function init() {
       //File object is immutable, so it does not rename to make it unique per user in js
       //Save user input if it is given and override the default
       if (CSV != null) {
-        if(sessionFlag==true) console.log("sessionFlag=="+sessionFlag);//saveCurrentUserCSV(CSV); // saves the user-uploaded csv under <userSessionID>.csv
-        if(sessionFlag==false) console.log("sessionFlag=="+sessionFlag);//saveOtherUserCSV(); // associates a copy of other user's CSV with current user's session ID
+        saveCurrentUserCSV(CSV);
+        //if(sessionFlag==true) console.log("sessionFlag=="+sessionFlag);//saveCurrentUserCSV(CSV); // saves the user-uploaded csv under <userSessionID>.csv
+        //if(sessionFlag==false) console.log("sessionFlag=="+sessionFlag);//saveOtherUserCSV(); // associates a copy of other user's CSV with current user's session ID
       } else {
         //Avoid null user file
         userData = DEFAULT_DATA;
