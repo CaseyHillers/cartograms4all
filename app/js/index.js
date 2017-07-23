@@ -64,15 +64,15 @@ function init() {
   } else {
       //File object is immutable, so it does not rename to make it unique per user in js
       //Save user input if it is given and override the default
-      if (CSV != null) { 
-        saveCSV(CSV); // saves the user-uploaded csv under <userSessionID>.csv
-        //userData = USER_DIRECTORY + csv.name;
+      if (CSV != null) {
+        if(sessionFlag==true) console.log("sessionFlag=="+sessionFlag);//saveCurrentUserCSV(CSV); // saves the user-uploaded csv under <userSessionID>.csv
+        if(sessionFlag==false) console.log("sessionFlag=="+sessionFlag);//saveOtherUserCSV(); // associates a copy of other user's CSV with current user's session ID
       } else {
         //Avoid null user file
         userData = DEFAULT_DATA;
       }
       //Add local file usage to avoid async js calls that breaks map
-      userData = URL.createObjectURL(CSV);
+      userData = "../uploader/upload/" + userSessionID + ".csv;"
       //userData = "../uploader/upload/" + userSessionID + ".csv";
   }
 

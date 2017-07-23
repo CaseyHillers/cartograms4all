@@ -57,14 +57,9 @@ function readFromServer(session_id) {
   return return_string;
 }
 
-// returns contents from app/php/settings/<session_id>.json as a string
-function loadCSVFromServer(session_id) {
-  userData = "uploader/upload" + session_id + ".csv";
-}
-
 //Save CSV to uploader/upload path via an ajax call
 //The saved CSV can be use for other user as it is public
-function saveCSV(userCSV) {
+function saveCurrentUserCSV(userCSV) {
 
   var data = new FormData();
   data.append("input_csv", userCSV);
@@ -83,6 +78,38 @@ function saveCSV(userCSV) {
         // Success so call function to process the form
         //submitForm(event, data);
 	console.log('Success' + textStatus);
+      } else {
+        // Handle errors here
+        console.log('ERRORS: ' + data.error);
+      }
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      console.log('ERRORS: ' + textStatus);
+    }
+  });
+}
+
+//Save CSV to uploader/upload path via an ajax call
+//The saved CSV can be use for other user as it is public
+function saveOtherUserCSV() {
+
+  var data = new FormData();
+  data.append("input_csv", userCSV);
+  data.append("name", userCSV.name)
+  data.append("session_id", userSessionID);
+
+  $.ajax({
+    url: 'uploader/upload-manager.php',
+    type: 'POST',
+    data: data,
+    cache: false,
+    processData: false, // Don't process the files
+    contentType: false, // jQuery will tell the server its a query string request
+    success: function(data, textStatus, jqXHR) {
+      if (typeof data.error === 'undefined') {
+        // Success so call function to process the form
+        //submitForm(event, data);
+  console.log('Success' + textStatus);
       } else {
         // Handle errors here
         console.log('ERRORS: ' + data.error);

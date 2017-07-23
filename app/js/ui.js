@@ -62,7 +62,7 @@ function share_twitter(){
 
 // writes the user's current CSV to the server
 function saveSession(){
-  saveCSV(CSV);
+  saveCurrentUserCSV(CSV);
 }
 
 /*
@@ -81,7 +81,7 @@ function loadOtherSession(){
 
 // loads the session ID into sharing form
 function shareSessionID(element){
-  if(userSessionID!==null) element.value = userSessionID;
+  if(userSessionID!=null) element.value = userSessionID;
 }
 
 // gets session ID from user...might eventually use that ID to do load another 
