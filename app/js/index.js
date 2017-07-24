@@ -57,12 +57,12 @@ function init() {
         userData = DEFAULT_DATA;
 
     } else if (whichMap === "Syria") {
-        URL_TOPO = DATA_DIRECTORY + "SyriaGovernorates.topojson";
+        URL_TOPO = TOPO_DIRECTORY + "SyriaGovernorates.topojson";
         userData = DATA_DIRECTORY + "syria.csv";
         setProjection(39, 34.8, 4500);
 
     } else if (whichMap === "UK") {
-        URL_TOPO = DATA_DIRECTORY + "uk.topojson";
+        URL_TOPO = TOPO_DIRECTORY + "uk.topojson";
         userData = DATA_DIRECTORY + "uk.csv";
         setProjection(-1.775320, 52.298781, 4500);
     }
