@@ -48,13 +48,11 @@ var CSV;
 /*
  * Flag Variables
  */
-var userUploadFlag = false;
-var serverDownloadFlag = false;
-
-// true if saving your current session
-var saveFlag = false;
-// true if you have saved a csv on the server
-var haveSavedFlag = false;
+var loadingFlag = false;
+var userUploadFlag = false; // true if using user-uploaded CSV
+var serverDownloadFlag = false; //true if using CSV from server
+var saveFlag = false; // true if saving your current session
+var haveSavedFlag = false; // true if you have saved a csv on the server
 
 /*
  * Main program instructions
@@ -97,32 +95,30 @@ function init() {
 
     CSV = document.getElementById('input_csv').files[0];
 
-    switch (whichMap) {
-        case "US":
+    if(!loadingFlag && !serverDownloadFlag){
+
+        if (whichMap === "US" && !userUploadFlag) {
             proj = d3.geo.albersUsa();
             URL_TOPO = DEFAULT_TOPO;
+            userData = DEFAULT_DATA;
             nameOfLoadFile = userData;
-            break;
-        case "California":
-            proj = d3.geo.albersUsa();
+        }
+        else if (whichMap === "California") {
+           proj = d3.geo.albersUsa();
             URL_TOPO = TOPO_DIRECTORY + "CAcountiesfinal.topojson";
             userData = DATA_DIRECTORY + "CAcountyages55-59.csv";
             nameOfLoadFile = userData;
-            break;
-        case "Syria":
+        } else if (whichMap === "Syria") {
             URL_TOPO = TOPO_DIRECTORY + "SyriaGovernorates.topojson";
             userData = DATA_DIRECTORY + "syria.csv";
             nameOfLoadFile = userData;
             setProjection(39, 34.8, 4500);
-            break;
-        case "UK":
+        } else if (whichMap === "UK") {
             URL_TOPO = TOPO_DIRECTORY + "uk.topojson";
             userData = DATA_DIRECTORY + "uk.csv";
             nameOfLoadFile = userData;
             setProjection(-1.775320, 52.298781, 4500);
-            break;
-        default:
-            alert("Invalid map selected");
+        }
     }
 
     // CSV uploaded by user
@@ -131,7 +127,7 @@ function init() {
     }
     // CSV is on server
     if (!userUploadFlag && serverDownloadFlag) {
-        userData = "uploader/" + nameOfLoadFile;
+        userData = nameOfLoadFile;
     }
     // No CSV loaded, using default
     if (!userUploadFlag && !serverDownloadFlag && whichMap == "US") {

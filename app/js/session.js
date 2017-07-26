@@ -1,3 +1,6 @@
+// Pre: n/a
+// Post: saveFlag == false
+// sets flags when writing the user's current CSV to the server && <userSessionID>.csv exists on the server
 var keyCodeEnter = 13;
 
 /*
@@ -10,6 +13,20 @@ function saveSession() {
     saveFlag = false;
 }
 
+// Pre: <userSessionID>.csv exists on the server (you have saved a file at some point)
+// Post: serverDownloadFlag == true, userUploadFlag == false && && userData = nameOfLoadFile
+// sets flags and file name when loading current user's CSV from server
+function loadMySession() {
+   loadingFlag = true;
+    serverDownloadFlag = true;
+    userUploadFlag = false;
+    nameOfLoadFile = USER_DIRECTORY + userSessionID + ".csv";
+    init();
+}
+
+// Pre: user-input session id == 16 chars and is valid (i.e. has an associated .csv file on our server)
+// Post: serverDownloadFlag = true && serUploadFlag == false && userData = nameOfLoadFile
+// sets flags and file name when loading other user's CSV from server
 /*
  * Updates state of application to
  * load session info from server
@@ -29,17 +46,15 @@ function loadMySession() {
  * Loads a complete session from the server
  */
 function loadOtherSession() {
-    if (nameOfLoadFile.length != 27) {
-        alert("Error: invalid session ID. Please enter a valid session ID.");
-    } else if (nameOfLoadFile.substring(7, 23) == userSessionID && !haveSavedFlag) {
-        alert("Error: you entered your own session ID but have no info saved. Please save your session info.");
-    } else {
-        serverDownloadFlag = true;
-        userUploadFlag = false;
-        init();
-    }
+   loadingFlag = true;
+    serverDownloadFlag = true;
+    userUploadFlag = false;
+    init();
 }
 
+// Pre: userSessionID == readCookie('userSessionCookie')
+// Post: sharing form contains userSessionID in readonly form
+// loads the session ID into sharing form
 /*
  * Update session id location with current session id
  */
@@ -49,6 +64,20 @@ function shareSessionID(element) {
     }
 }
 
+// Pre: user-input session id has 16 char length and is valid (i.e. has an associated .csv file on our server)
+// Post: userData = nameOfLoadFile
+// gets a session ID from user and uses it to load the corresponding user's CSV
+document.getElementById('paste_session_id').onkeydown = function(event) {
+    var e = event || windows.event;
+    if (e.keyCode == 13) {
+        nameOfLoadFile = USER_DIRECTORY + document.getElementById('paste_session_id').value + ".csv"; // gets the session_id from the form for accessing other user's CSV's
+        loadOtherSession(); // set flags and file name
+    }
+}
+
+// Pre: none
+// Post: return 16 char alphanumeric string
+// returns a random 16 character alphanumeric string to be used as a session ID
 /*
  * Grabs user inputted session ID
  */
@@ -73,13 +102,15 @@ function generateSessionID(length) {
     return result;
 }
 
+// Pre: session_id is valid && string_to_save != null
+// Post: string_to_save is stored as the contents of <session_id>.json on the server
+// writes string_to_save to app/php/settings/<session_id>.json
 /*
  * Writes user's application state to the server
  * (i.e. CSV file being used, custom parameters, etc)
  */
 function writeToServer(session, saveData) {
     var XHR;
-
     var data = new FormData();
     data.append("data", saveData);
     data.append("name", session);
@@ -94,6 +125,9 @@ function writeToServer(session, saveData) {
     XHR.send(data);
 }
 
+// Pre: <session_id>.json exists on server
+// Post: returns a string representation of the contents of <session_id>.json
+// returns contents from app/php/settings/<session_id>.json as a string
 /*
  * Get session info from server
  */
@@ -119,6 +153,11 @@ function readFromServer(session) {
     return returnString;
 }
 
+// Pre: readFromServer(sessionID) returns a valid .json string
+// Post: current user now uses settings loaded from server
+// Import cookie information through an API that reads the content of sessionId.json
+// After importing, it will try to pull out the critical information like file/settings
+// It then sets it for the user
 /*
  * Apply session settings from the server so that application
  * state has those settings being used
@@ -130,6 +169,9 @@ function importUserSettings(session) {
     init();
 }
 
+// Pre: userCookieJson is initialized
+// Post: <session_id>.json stores user settings on the server
+// Export cookie information and call API to write file as sessionId.json
 /*
  * Export application state into session settings
  */
@@ -141,13 +183,16 @@ function exportUserSettings() {
     writeToServer(session, userCookieJson);
 }
 
+// Pre: userCSV is a DOM object containing a valid userCSV
+// Post: <userSessionID>.csv is stored on the server
+// Save a .csv to the uploader/upload on the server via an ajax call.
 /*
  * Upload CSV to server
  */
 function saveByFile(userCSV) {
     var data = new FormData();
     data.append("input_csv", userCSV);
-    data.append("name", userCSV.name)
+    data.append("name", userCSV.name);
     data.append("session_id", userSessionID);
 
     $.ajax({
@@ -160,9 +205,12 @@ function saveByFile(userCSV) {
         success: function(data, textStatus, jqXHR) {},
         error: function(jqXHR, textStatus, errorThrown) {}
     });
-    haveSavedFlag = true;
 }
 
+// Pre: userSessionID is valid && nameOfLoadFile is a valid path to a .csv on the server
+// Post: a new <userSessionID>.csv is stored on the server
+// Save CSV to uploader/upload path given the name of the file via an ajax call
+// The saved CSV can be use for other user as it is public
 /*
  * Save CSV by session ID
  */
@@ -180,5 +228,4 @@ function saveByName() {
 
     XHR.open('post', PHP_DIRECTORY + 'saveByName.php', true);
     XHR.send(data);
-    haveSavedFlag = true;
 }

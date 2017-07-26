@@ -1,3 +1,6 @@
+// Pre: 
+// Post: 
+// Brings up upload function 
 /*
  * Get user uploaded CSV
  */
@@ -49,9 +52,9 @@ $('#maps-clear').click(function() {
 });
 
 function shareEmail() {
-    window.open('mailto:abc@abc.com?subject=Check out my cartogram!&body=Load my session at https://cartogram4all.herokuapp.com/app/index.html. My Session ID is ' + userSessionCookie);
+        window.open('mailto:abc@abc.com?subject=Check out my cartogram!&body=Load my session at https://cartogram4all.herokuapp.com/app/index.html. My Session ID is ' + readCookie('userSessionCookie'));
 }
 
 function shareTwitter() {
-    window.open(href = "https://twitter.com/intent/tweet?text=Check out my cartogram! Load my session at https://cartogram4all.herokuapp.com/app/index.html. My Session ID is " + userSessionCookie, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
+    window.open(href = "https://twitter.com/intent/tweet?text=Check out my cartogram! Load my session at https://cartogram4all.herokuapp.com/app/index.html. My Session ID is " + readCookie('userSessionCookie'), '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
 }
